@@ -1,0 +1,12 @@
+.navbar{
+    display: flex;
+    justify-content:space-around;
+    height: 80px;
+    align-items: center;
+    background-color: #000;
+
+}
+.create-btn{
+    font-size: 32px;
+    color: orangered;
+}
