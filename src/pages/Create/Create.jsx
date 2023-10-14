@@ -12,6 +12,8 @@ const Create = () => {
     price: 0,
     image: null,
     category: "",
+
+    stock: true,
   });
 
   const handleChange = (event) => {
@@ -27,7 +29,7 @@ const Create = () => {
   const handleCheckboxChange = (event) => {
     setFormData((prev) => ({
       ...prev,
-      featured: event.target.checked,
+      stock: event.target.checked,
     }));
   };
 
@@ -57,6 +59,8 @@ const Create = () => {
     data.append("price", Number(formData.price));
     data.append("productImage", formData.productImage);
     data.append("category", formData.category);
+    
+    data.append("stock", formData.stock ? true : false);
 
     axios
       .post("/api/products", data)
@@ -102,6 +106,18 @@ const Create = () => {
             type="number"
             id="price"
             name="price"
+          />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="stock">stock ?</label>
+          <input
+            onChange={handleCheckboxChange}
+            
+            checked={formData.stock}
+            type="checkbox"
+            id="stock"
+            name="stock"
           />
         </div>
 

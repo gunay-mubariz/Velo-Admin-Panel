@@ -17,6 +17,8 @@ const Edit = () => {
     price: 0,
     image: null,
     category: "",
+
+    stock: true,
   });
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const Edit = () => {
   const handleCheckboxChange = event => {
     setFormData(prev => ({
       ...prev,
-      featured: event.target.checked,
+      stock: event.target.checked,
     }));
   };
 
@@ -65,16 +67,20 @@ const Edit = () => {
   const handleSubmit = event => {
     event.preventDefault();
     console.log(formData);
-
+    
+    
+    
     const data = new FormData();
     data.append("name", formData.name);
     data.append("details", formData.details);
     data.append("price", Number(formData.price));
     data.append("productImage", formData.image);
     data.append("category", formData.category);
-
+    
+    data.append("stock", formData.stock ? "true" : "false");
+    
     axios
-      .put(`/api/products/${id}`, data)
+    .put(`/api/products/${id}`, data)
       .then(() => history.push(`/products/${id}`))
       .catch(err => console.log(err));
   };
@@ -82,6 +88,7 @@ const Edit = () => {
   const handleCancel = () => {
     history.push(`/products/${id}`);
   };
+
 
   return (
     <div className="create">
@@ -116,6 +123,18 @@ const Edit = () => {
             type="number"
             id="price"
             name="price"
+          />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="stock">Stock ?</label>
+          <input
+            onChange={handleCheckboxChange}
+            
+            checked={formData.stock}
+            type="checkbox"
+            id="stock"
+            name="stock"
           />
         </div>
        
